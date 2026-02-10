@@ -104,5 +104,46 @@
             </div>
         </main>
     </div>
+
+<div id="image-modal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="full-image">
+</div>
+
+
+
+
+
+<script>
+    // מחכים שהדף יטען
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('full-image');
+    const closeBtn = document.querySelector('.close-modal');
+    const galleryImages = document.querySelectorAll('.posts-grid img');
+
+    // לכל תמונה בגלריה, מוסיפים אירוע לחיצה
+    galleryImages.forEach(img => {
+        img.onclick = function() {
+            modal.style.display = "flex"; // מציג את החלון
+            modalImg.src = this.src;     // מעתיק את כתובת התמונה שנלחצה
+        }
+    });
+
+    // סגירת החלון בלחיצה על ה-X
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // סגירת החלון בלחיצה בכל מקום מחוץ לתמונה
+    modal.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+});
+</script>
+
 </body>
+
 </html>

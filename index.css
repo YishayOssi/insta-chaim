@@ -1,3 +1,4 @@
+/* --- הגדרות כלליות ואיפוס --- */
 * {
     box-sizing: border-box;
 }
@@ -8,12 +9,13 @@ body {
     background-color: #ffffff;
 }
 
+/* --- מבנה האתר (Layout) --- */
 .layout {
     display: flex;
     flex-direction: row;
 }
 
-/* --- תפריט צדדי ואפקטים --- */
+/* סרגל צד - מרכוז אייקונים */
 .side-nav {
     width: 75px;
     height: 100vh;
@@ -22,6 +24,10 @@ body {
     top: 0;
     padding: 20px 0;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
 }
 
 .nav-icons-wrapper {
@@ -34,11 +40,11 @@ body {
 .nav-icon {
     width: 26px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out; /* אפקט חמוד */
+    transition: transform 0.2s ease-in-out;
 }
 
 .nav-icon:hover {
-    transform: scale(1.2); /* גדל כשעוברים עליו */
+    transform: scale(1.2);
 }
 
 /* --- תוכן ראשי --- */
@@ -94,7 +100,6 @@ body {
     margin: 0;
 }
 
-/* אפקט על הלחצנים המדומים */
 .btn-edit {
     background: #efefef;
     border: none;
@@ -103,13 +108,13 @@ body {
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.2s ease; /* הכנה לאפקט */
+    transition: all 0.2s ease;
 }
 
 .btn-edit:hover {
     background: #dbdbdb;
-    transform: translateY(-2px); /* קופץ קצת למעלה */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* צל עדין */
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .stats {
@@ -121,9 +126,10 @@ body {
     font-weight: bold;
 }
 
-/* --- סטוריז עם הצבע המקורי ששלחת --- */
+/* --- סטוריז --- */
 .stories-container {
     display: flex;
+    justify-content: flex-start;
     gap: 20px;
     padding: 20px 0;
     border-bottom: 1px solid #dbdbdb;
@@ -134,35 +140,35 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    transition: transform 0.2s;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .story-item:hover {
-    transform: translateY(-3px); /* אפקט לכל הסטורי */
+    transform: translateY(-5px);
 }
 
-/* התיקון למסגרת ששלחת בצילום מסך */
 .original-story-ring {
-    width: 66px;
-    height: 66px;
+    width: 77px;
+    height: 77px;
     border-radius: 50%;
-    outline: rgb(189, 187, 187) solid 3px; /* האפור החיצוני */
-    border: white solid 3px;               /* הלבן הפנימי */
+    border: 1px solid #dbdbdb;
+    padding: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    cursor: pointer;
+    background-color: #fff;
 }
 
 .original-story-ring img {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
     object-fit: cover;
+    image-rendering: -webkit-optimize-contrast;
 }
 
-/* --- גריד פוסטים (ללא פגיעה ברזולוציה) --- */
+/* --- גריד פוסטים - עם תיקון חדות משופר --- */
 .posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -171,11 +177,115 @@ body {
 
 .posts-grid img {
     width: 100%;
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
     display: block;
     cursor: pointer;
     transition: opacity 0.2s;
+    
+    /* פקודות לשמירה על חדות מקסימלית בכיווץ */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    
+    /* מונע טשטוש בזמן רינדור מחדש של הדפדפן */
+    transform: translateZ(0); 
+    backface-visibility: hidden;
 }
 
 .posts-grid img:hover {
-    opacity: 0.8; /* אפקט פשוט על התמונות */
+    opacity: 0.8;
+}
+
+/* --- מודאל (הגדלת תמונה) --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+    /* התמונה הגדולה צריכה להיות חדה אבל לא "מגורענת" */
+    image-rendering: auto; 
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- התאמה לניידים --- */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .side-nav {
+        width: 100%;
+        height: 50px;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        border-left: none;
+        border-top: 1px solid #dbdbdb;
+        background-color: white;
+        z-index: 1000;
+        padding: 0;
+    }
+
+    .nav-icons-wrapper {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+    }
+
+    .container {
+        padding: 40px 15px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .user-actions {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .stories-container {
+        overflow-x: auto;
+        padding: 15px 5px;
+        scrollbar-width: none;
+    }
+    
+    .stories-container::-webkit-scrollbar {
+        display: none;
+    }
 }

@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+.layout {
+    display: flex;
+    flex-direction: row;
+}
+
+/* --- תפריט צדדי ואפקטים --- */
+.side-nav {
+    width: 75px;
+    height: 100vh;
+    border-left: 1px solid #dbdbdb;
+    position: sticky;
+    top: 0;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+.nav-icons-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-icon {
+    width: 26px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out; /* אפקט חמוד */
+}
+
+.nav-icon:hover {
+    transform: scale(1.2); /* גדל כשעוברים עליו */
+}
+
+/* --- תוכן ראשי --- */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 935px;
+    padding: 30px 20px;
+}
+
+/* --- Header פרופיל --- */
+.profile-header {
+    display: flex;
+    margin-bottom: 44px;
+    align-items: center;
+}
+
+.profile-pic-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-main-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #dbdbdb;
+}
+
+.profile-info-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.username {
+    font-size: 28px;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* אפקט על הלחצנים המדומים */
+.btn-edit {
+    background: #efefef;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease; /* הכנה לאפקט */
+}
+
+.btn-edit:hover {
+    background: #dbdbdb;
+    transform: translateY(-2px); /* קופץ קצת למעלה */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* צל עדין */
+}
+
+.stats {
+    display: flex;
+    gap: 40px;
+}
+
+.display-name {
+    font-weight: bold;
+}
+
+/* --- סטוריז עם הצבע המקורי ששלחת --- */
+.stories-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+}
+
+.story-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+}
+
+.story-item:hover {
+    transform: translateY(-3px); /* אפקט לכל הסטורי */
+}
+
+/* התיקון למסגרת ששלחת בצילום מסך */
+.original-story-ring {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    outline: rgb(189, 187, 187) solid 3px; /* האפור החיצוני */
+    border: white solid 3px;               /* הלבן הפנימי */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.original-story-ring img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- גריד פוסטים (ללא פגיעה ברזולוציה) --- */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.posts-grid img {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.posts-grid img:hover {
+    opacity: 0.8; /* אפקט פשוט על התמונות */
+}
